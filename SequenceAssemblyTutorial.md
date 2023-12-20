@@ -272,7 +272,7 @@ Next, run the ipyrad assembly command.
 conda activate ipyrad
 
 #navigate to your ipyrad directory
-cd /data/gpfs/assoc/YOUR/DIRECTORY/
+cd /YOUR/DIRECTORY/
 
 #submit slurm job to run ipyrad
 sbatch ./ipyrad-file.txt
