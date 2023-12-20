@@ -35,11 +35,11 @@ This workflow will take you through the steps of assembly for restriction digest
 9. Test that conda is working correctly by running `conda list`. You should see a list of installed packages.
 10. After you have confirmed that conda is working correctly, you can delete the installer with `rm Anaconda3-2023.09-0-Linux-x86_64.sh`
 
-**Note:** On windows, after installing conda, if (base) or (your\_environment\_name) does not show up in the prompt, conda prompts may not work. Try running `bash` to get the environment name to show up in the prompt and test that conda is working with `conda list`. This applies for all future conda prompts; if they are not working, try to running `bash` first.
+**Note:** On Windows, after installing conda, if (base) or (your\_environment\_name) does not show up in the prompt, conda prompts may not work. Try running `bash` to get the environment name to show up in the prompt and test that conda is working with `conda list`. This applies to all future conda prompts; if they are not working, try to run `bash` first.
 
 ### Creating your conda environment
 
-You may want to create a conda environment for specific projects and software. By orgainzing software into environments, you can work with different software versions. This can be important because some software require other software (e.g., python) to be a specific or older version than others.
+You may want to create a conda environment for specific projects and software. By organizing software into environments, you can work with different software versions. This can be important because some software requires other software (e.g., python) to be a specific or older version than others.
 
 ```
 conda create -n myenvname
@@ -95,7 +95,7 @@ conda install notebook -c conda-forge
 conda install mpi4py -c conda-forge
 ```
 
-**Note:** these may automatically install with some versions of ipyrad.
+**Note:** These may automatically install with some versions of ipyrad.
 
 The conda-forge and bioconda channels are well vetted. You can add them as default channels to search in with:
 
@@ -106,7 +106,7 @@ conda config --add channels bioconda
 
 ### Install `structure_threader`
 
-The package `structure_threader` is a wrapper software for `structure`, `faststructure`, `MavericK` and `ALStructure`. It can run one or all of these software in parallel decreasing the run time for DNA assembly. Additional documentation can be found [here](https://structure-threader.readthedocs.io/en/latest/).
+The package `structure_threader` is a wrapper software for `structure`, `faststructure`, `MavericK`, and `ALStructure`. It can run one or all of these software in parallel decreasing the run time for DNA assembly. Additional documentation can be found [here](https://structure-threader.readthedocs.io/en/latest/).
 
 You can install `structure_threader` using `pip3`, which is a package manager. `conda` is both a package manager and a virtual environment manager.
 
@@ -123,7 +123,7 @@ If `pip3` is not installed:
 
 1. Check if `python` is installed in the environment: `which python`
 2. If `python` is installed in the environment it will give you a path to the installation that includes your conda installation in the path. You can check which version it is with `python --version`
-3. If `python` is not installed in the environment it will give you a path to the installation that does not include your conda installation path, for example /usr/bin/python
+3. If `python` is not installed in the environment it will give you a path to the installation that does not include your conda installation path, for example, /usr/bin/python
 
 If you need to install `python`:
 
@@ -156,23 +156,23 @@ conda install faststructure -c bioconda
 
 ## 2. Run `ipyrad`<a name="ipyrad"></a>
 
-The goal of ipyrad is to take raw sequence data and assembly it to a reference genome or denovo. For ipyrad to run you need a set of fasta files (.fasta or .fasta.gz), a parameter file (.txt), and a slurm file (.txt).
+The goal of ipyrad is to take raw sequence data and assemble it to a reference genome or denovo. For ipyrad to run you need a set of fasta files (.fasta or .fasta.gz), a parameter file (.txt), and a slurm file (.txt).
 
 ### A) Create ipyrad parameter file
 
-Below is the contents of the ipyrad parameter file (.txt) with mostly default parameters. Documentation on the parameters can be found [here](https://ipyrad.readthedocs.io/en/latest/6-params.html).
+Below are the contents of the ipyrad parameter file (.txt) with mostly default parameters. Documentation on the parameters can be found [here](https://ipyrad.readthedocs.io/en/latest/6-params.html).
 
 You can create a default parameter file to edit by running `ipyrad -n test` in your ipyrad environment, in the folder that is storing your .fastq files. You can then edit the file using `nano params-test.txt`. For example, we will change the assembly method to *reference* rather than *denovo*, which requires us to also add the path to the reference genome sequence. Check out the other changes to the file:
 
 ```
 ------- ipyrad params file (v.0.9.24)-------------------------------------------
 Project-Name  ## [0] [assembly_name]: Assembly name. Used to name output directories for assembly steps
-/data/gpfs/assoc/YOUR/DIRECTORY ## [1] [project_dir]: Project dir (made in curdir if not present)
+/YOUR/DIRECTORY ## [1] [project_dir]: Project dir (made in curdir if not present)
 ## [2] [raw_fastq_path]: Location of raw non-demultiplexed fastq files
 ## [3] [barcodes_path]: Location of barcodes file
-/data/gpfs/assoc/YOUR/DIRECTORY/*.fastq.gz ## [4] [sorted_fastq_path]: Location of demultiplexed/sorted fastq files
+/YOUR/DIRECTORY/*.fastq.gz ## [4] [sorted_fastq_path]: Location of demultiplexed/sorted fastq files
 reference ## [5] [assembly_method]: Assembly method (denovo, reference)
-/data/gpfs/assoc/YOUR/DIRECTORY/genomefile.fasta ## [6] [reference_sequence]: Location of reference sequence file
+/YOUR/DIRECTORY/genomefile.fasta ## [6] [reference_sequence]: Location of reference sequence file
 ddrad ## [7] [datatype]: Datatype (see docs): rad, gbs, ddrad, etc.
 ## [8] [restriction_overhang]: Restriction overhang (cut1,) or (cut1, cut2)
 5 ## [9] [max_low_qual_bases]: Max low quality base calls (Q<20) in a read
@@ -200,9 +200,9 @@ ddrad ## [7] [datatype]: Datatype (see docs): rad, gbs, ddrad, etc.
 
 ### B) Create Slurm Script
 
-Slurm is a job management tool for HPCs. When using Pronghorn, we need to submit jobs using slurm. The basic command is `sbatch path/to/slurm/script.txt`. The slurm script file will contain some HPC-related parameters as well as the acutal bash command(s) you want to run.
+Slurm is a job management tool for HPCs. When using Pronghorn, we need to submit jobs using slurm. The basic command is `sbatch path/to/slurm/script.txt`. The slurm script file will contain some HPC-related parameters as well as the actual bash command(s) you want to run.
 
-The following is the contents of slurm file for running ipyrad:
+The following are the contents of slurm file for running ipyrad:
 
 ```
 #!/bin/bash
@@ -220,7 +220,7 @@ The following is the contents of slurm file for running ipyrad:
 #SBATCH --mail-user=youremail@unr.edu
 
 ## directory with params file
-PARAMS=/data/gpfs/assoc/YOUR/DIRECTORY/params.txt
+PARAMS=/YOUR/DIRECTORY/params.txt
 
 ## call ipyrad 
 ipyrad -p $PARAMS -s 1234567 -c 32 -d
@@ -235,13 +235,13 @@ The next 12 lines are slurm notation to inform the run.
 3. `--error` name the error file
 4. `--account` what pronghorn account you are working on. Could be your personal account, or a lab group association account.
 5. `--partition` which partitions (groups of nodes) are you requesting
-6. `--time` how much run time are you requesting
+6. `--time` how much run-time are you requesting
 7. `--nodes` how many nodes are you requesting
 8. `--tasks-per-node` how many tasks should be assigned to each node
 9. `--cpus-per-task` how many CPUs should be assigned to each task
 10. `--mem-per-cpu` how much memory (RAM) do you need per CPU
 11. `--mail-type` what do you want to get email notifications about
-12. `mail-user` your email address to recieve email notifications
+12. `mail-user` your email address to receive email notifications
 
 After the slurm information, you put the commands you want to run in your job.
 
@@ -279,15 +279,15 @@ sbatch ./ipyrad-file.txt
 	#batch job ID #######
 ```
 
-Record your job number so you can access the job later if you need to check on the progress or cancel it. Under these computing parameters it takes approximately 20 hours for ipyrad to assemble 200 individual samples.
+Record your job number so you can access the job later if you need to check on the progress or cancel it. Under these computing parameters, it takes approximately 20 hours for ipyrad to assemble 200 individual samples.
 
-Once completed, you will have a output folder within your directory with all of the files selected in the parameters file, but importantly there is a text file with statistics of the run which provides information about read depth, SNP calls, etc. You should look through those data to look for any errors or outliers.
+Once completed, you will have an output folder within your directory with all of the files selected in the parameters file, but importantly there is a text file with statistics of the run which provides information about read depth, SNP calls, etc. You should look through those data to look for any errors or outliers.
 
-Most importantly ipyrad creates a Structure file (.str) for you within your output directory. You will use this file as part of in input for structure_threader.
+Most importantly ipyrad creates a Structure file (.str) for you within your output directory. You will use this file as part of an input for structure_threader.
 
 ## 3. Run `structure_threader`<a name="structure_threader"></a>
 
-The goal of this step is to infer population structure by taking a Bayesian estimates of underlying ancestry of individuals. You will need a str file from the ipyrad output, an individual file, a main parameters file, and a slurm file.
+The goal of this step is to infer population structure by taking Bayesian estimates of the underlying ancestry of individuals. You will need a str file from the ipyrad output, an individual file, a main parameters file, and a slurm file.
 
 ### A) Copy your str file to your structure_threader folder
 
@@ -361,8 +361,8 @@ Basic Program Parameters
 
 Input/Output files
 
-#define INFILE   /data/gpfs/assoc/YOUR/DIRECTORY/file.str   // (str) name of input data file
-#define OUTFILE  /data/gpfs/assoc/YOUR/DIRECTORY/output_directory   //(str) name of output data file
+#define INFILE   /YOUR/DIRECTORY/file.str   // (str) name of input data file
+#define OUTFILE  /YOUR/DIRECTORY/output_directory   //(str) name of output data file
 
 Data file format
 
@@ -406,7 +406,7 @@ Command line options:
 
 You can change these parameters from their default to get your desired results, but you have to define `MAXPOPS`, `NUMINDS`, and `NUMLOCI`.
 
-1. `MAXPOPS` is the number of populations you expect within your individuals. It can complete a range of populations or K, for example if you set the `MAXPOPS` to 4, then it will predict population assignment for one population, two, three, and lastly four populations. Results for all four population sizes will be created and it will estimate the best K for your data. It's important select the best K and to move forward with based on the structure_threader estimate, but also the biology and natural history of your samples.
+1. `MAXPOPS` is the number of populations you expect within your individuals. It can complete a range of populations or K, for example, if you set the `MAXPOPS` to 4, then it will predict population assignment for one population, two, three, and lastly four populations. Results for all four population sizes will be created and it will estimate the best K for your data. It's important to select the best K and to move forward based on the structure_threader estimate, but also the biology and natural history of your samples.
 
 2. `NUMINDS` is simply the number of individuals in your dataset
 
@@ -414,7 +414,7 @@ You can change these parameters from their default to get your desired results, 
 
 ### D) Create Slurm Script
 
-The following is the contents of slurm file for running structure_threader:
+The following are the contents of slurm file for running structure_threader:
 
 ```
 #!/bin/bash
@@ -442,16 +442,16 @@ The first line is the  `structure_threader` call and `run` mode.
 
 * `-i` denotes the input file, which is the .str file from `ipyrad`.
 * `-o` denotes the outputfile name, the same name as the SBATCH output.
-* `--params` denotes the file path to the paramaters file.
+* `--params` denotes the file path to the parameter file.
 * `-fs` denotes the file path to your `fastStructure` software, which is in your `fs` conda environment.
-* `--ind` denotes the file path to your individual file, with your indvidual sample id. Note: the file extention must be .indfile
+* `--ind` denotes the file path to your individual file, with your individual sample id. Note: the file extension must be .indfile
 * `-K` (int) is the number of populations - this value must match the `MAXPOPS` value in the parameters file.
 * `-t` (int) is the number of threads to use
 
 The second line is the `structure_threader` call and `plot`
  mode. This line will take the results from the `run` and create the classic structure barplot.
  
- * `-i` denotes the input file, which is the `structure_threader run` ouput.
+ * `-i` denotes the input file, which is the `structure_threader run` output.
  * `-f` denotes the external program used.
  * `-K`  values that you want to plot. Each individual K value that is provided will be plotted individually and in the end, a comparative plot will all K values will also be generated. (-K; Example: -K 2 3 4).
  * `-o` denotes the file name of output plots.
@@ -466,17 +466,17 @@ conda activate str
 # navigate to your working directory
 cd /data/gpfs/assoc/YOUR/DIRECTORY/
 
-# submit slrurm job to run structure threader
+# submit slurm job to run structure threader
 sbatch ./str_script.txt
 ```
 
 ## 4. Extract Information from Result Files<a name="results"></a>
 
-There are many output files from ipyrad and structure_threader and many analyses that can be done with these outputs. For our purposes, we take 3 files and combine them into a .csv file for further analysis and plotting.
+There are many output files from ipyrad and structure_threader and many analyses can be done with these outputs. For our purposes, we take 3 files and combine them into a .csv file for further analysis and plotting.
 
 Files needed:
 
-1. The ipyrad output file that containts the heterozygosity estimates for each individual (.txt)
+1. The ipyrad output file that contains the heterozygosity estimates for each individual (.txt)
 2. The structure_threader output file that contains the q value estimates for each individual (.meanQ)
 3. The structure_threader input file that provides individual IDs for the output q values (.indfile)
 
@@ -581,7 +581,7 @@ with open(het_file, 'r') as het:
 #print(het_dict)
 print(f'{len(het_dict)} individuals extracted from het file')
 
-assert len(het_dict)==len(ind_col), 'het file has different number of individuals than id file or q file'
+assert len(het_dict)==len(ind_col), 'het file has a different number of individuals than id file or q file'
 		
 # make dict of id:[q1, q2, het]
 final_dict = {}
